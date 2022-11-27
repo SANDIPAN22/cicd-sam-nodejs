@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: CI/CD project based on SAM
+Resources:
+  loggerLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: cicd-proj-2207-lambda
+      Handler: logger.handler
+      Runtime: nodejs16.x
+      Timeout: 5
+      Events:
+        ApiTrigger:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: get
+            RestApiId:
+              Ref: MyApi
+      CodeUri: s3://sampledestinitionbucket2299/3729e0c07c5c059f8adc49080403981d
+    Metadata:
+      SamResourceId: loggerLambda
+  MyApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: api
+    Metadata:
+      SamResourceId: MyApi
