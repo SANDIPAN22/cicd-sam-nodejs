@@ -1,0 +1,32 @@
+version: 0.2
+
+phases:
+
+  install:
+
+    commands:
+
+      - npm i
+      - echo "installation complete !!!!" 
+
+  pre_build:
+
+    commands:
+
+      - sam package --template-file template.yaml --output-template-file sam.yaml --s3-bucket sampledestinitionbucket2299
+      - echo "pre build process complete !!!!"
+
+  build:
+
+    commands:
+
+      - sam deploy --template-file sam.yaml --stack-name cicd-proj-2207 
+      - echo "BUILD complete !!!!"
+
+
+  post_build:
+
+    commands:
+
+      - echo "Deployment done !!!!"
+
