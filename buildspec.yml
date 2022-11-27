@@ -20,7 +20,7 @@ phases:
 
     commands:
 
-      - sam deploy --template-file sam.yaml --stack-name cicd-proj-2207 --capabilities CAPABILITY_IAM
+      - sam deploy --template-file sam.yaml --stack-name cicd-proj-2207  --parameter-overrides Stage=$ENV_NAME --capabilities CAPABILITY_IAM
       - echo "BUILD complete !!!!"
 
 
