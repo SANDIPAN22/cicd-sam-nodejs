@@ -2,11 +2,31 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: CI/CD project based on SAM
 
+
+Parameters:
+  Stage:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - prod
+    Description: this choice value to choose right environment
+
+# Mappings:
+#   EnvMap:
+#     dev:
+#       FUNCTION_NAME: cicd-proj-2207-lambda-dev
+#       API_NAME: cicd-proj-2207-api-dev
+#     prod: 
+#       FUNCTION_NAME: cicd-proj-2207-lambda-prod
+#       API_NAME: cicd-proj-2207-api-prod
+
 Resources:
   loggerLambda:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: cicd-proj-2207-lambda
+      # FunctionName: cicd-proj-2207-lambda
+      FunctionName: !Join ["--", ["cicd-proj-2207", !Ref Stage]]
       Handler: logger.handler
       Runtime: nodejs16.x
       Timeout: 5
@@ -22,4 +42,4 @@ Resources:
   MyApi:
     Type: AWS::Serverless::Api
     Properties:
-      StageName: api
+      StageName: !Ref Stage

@@ -1,11 +1,23 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: CI/CD project based on SAM
+Parameters:
+  Stage:
+    Type: String
+    Default: dev
+    AllowedValues:
+    - dev
+    - prod
+    Description: this choice value to choose right environment
 Resources:
   loggerLambda:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: cicd-proj-2207-lambda
+      FunctionName:
+        Fn::Join:
+        - --
+        - - cicd-proj-2207
+          - Ref: Stage
       Handler: logger.handler
       Runtime: nodejs16.x
       Timeout: 5
@@ -17,7 +29,7 @@ Resources:
             Method: get
             RestApiId:
               Ref: MyApi
-      CodeUri: s3://sampledestinitionbucket2299/3729e0c07c5c059f8adc49080403981d
+      CodeUri: s3://sampledestinitionbucket2299/56a4b33cff39c72747ec4e941ba450f1
     Metadata:
       SamResourceId: loggerLambda
   MyApi:
