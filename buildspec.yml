@@ -20,7 +20,7 @@ phases:
 
     commands:
 
-      - sam deploy --template-file sam.yaml --stack-name cicd-proj-2207 
+      - sam deploy --template-file sam.yaml --stack-name cicd-proj-2207 --capabilities CAPABILITY_IAM
       - echo "BUILD complete !!!!"
 
 
